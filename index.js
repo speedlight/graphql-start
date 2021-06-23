@@ -2,29 +2,35 @@ const express = require('express')
 const app = express()
 const port = 3030
 const mongoUrl = "mongodb://localhost:27017"
-
 const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
-const mongoose = require('mongoose');
 
+const mongoose = require('mongoose');
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
-
-// Un mensaje que nos avise si se pudo conectar a la base da datos, o no. 
 !db ? console.log("Error connecting db") : console.log("Db connected successfully");
 
-let Schema = mongoose.Schema;
+const Student = require("./model")
 
-let demoSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-});
+const getStudent = (query) => {
+  return Student.findOne({name: query.user}, function (err, reponse) {
+   if(err) return err
+    return response;
+  })
+}
 
-let root = {
-  estudent: getEstudent
-};
+const root = {
+  student: getStudent
+}
+
+const schema = buildSchema(`
+  type Query {
+    student(name: String!): Student
+  }
+  type Student {
+    name: String!
+  }
+`)
 
 app.use('/graphql', graphqlHTTP({
 	schema: schema,
