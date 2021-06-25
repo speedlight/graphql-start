@@ -19,6 +19,13 @@ const getStudent = (query) => {
   })
 }
 
+const getStudentrd = (query) => {
+  return Student.findOne({'relational_data.email': query.email}, function (err, response) {
+   if(err) return err
+    return response;
+  })
+}
+
 const getAllStudent = () => {
   return Student.find({}, function (err, response) {
    if(err) return err
@@ -28,13 +35,15 @@ const getAllStudent = () => {
 
 const root = {
   student: getStudent,
-  students: getAllStudent
+  students: getAllStudent,
+  students_rd: getStudentrd
 }
 
 const schema = buildSchema(`
   type Query {
     student(citizenship: String): Student
     students:[Student]
+    students_rd(email: String): Student
   }
   type Student {
     citizenship: String
@@ -44,12 +53,16 @@ const schema = buildSchema(`
   type Relational_data {
     all_data: String
     name: Name
-    id_card: String
+    id_card: Id_card
     email: String
     gender: String
     years: String
   }
   type Name {
+    show: String
+    order: String
+  }
+  type Id_card {
     show: String
     order: String
   }
