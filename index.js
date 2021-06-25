@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3030
-const mongoUrl = "mongodb://localhost:27017"
+const mongoUrl = "mongodb://localhost:27017/colegios"
 const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 

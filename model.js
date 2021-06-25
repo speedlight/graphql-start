@@ -85,5 +85,4 @@ let schema = new Schema({
     years: {type: mixedType}
   }
 }, {collection: 'students'});
-
 module.exports = Student = mongoose.model('students', schema);
