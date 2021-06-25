@@ -3,8 +3,7 @@ let Schema = mongoose.Schema;
 let ObjectId = mongoose.Schema.Types.ObjectId;
 let mixedType = mongoose.Schema.Types.Mixed;
 
-let years_schema = new Schema({
-  year: {type: ObjectId, ref: 'years'},
+let years_schema = new Schema({ 
   registered_date: Number,
   enrolled: Boolean,
   registered: Boolean,
@@ -12,13 +11,11 @@ let years_schema = new Schema({
   withdrawn_after_period: String,
   withdrawn_notes: String,
   grade: ObjectId,
-  group: {type: ObjectId, ref: 'groups'},
   registration_sequence: Number,
   registration_type: {type: ObjectId},
   registration_type_notes: String,
   paid: Boolean,
-  late_payment: Boolean,
-  subscription: {type: ObjectId, ref: 'subscriptions'}
+  late_payment: Boolean
 });
 
 let contacts_schema = new Schema({
@@ -52,8 +49,6 @@ let schema = new Schema({
   unique_electric_code: String,
   system_access: Boolean,
   blocked: Boolean,
-  permissions: [ {type: ObjectId, ref: 'permissions_profiles'} ],
-  school: {type: ObjectId, ref: 'schools', index: true},
   transport: Boolean,
   counseling: {
     siblings: {
@@ -74,7 +69,6 @@ let schema = new Schema({
   years: [ years_schema ],
   period_conduct: [ period_conduct_schema ],
   period_comments: [ period_comments_schema ],
-  user: {type: ObjectId, ref: 'users'},
 
   relational_data: {
     all_data: String,
